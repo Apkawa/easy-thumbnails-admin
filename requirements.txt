@@ -1,0 +1,9 @@
+-r ./package_requirements.txt
+pytest
+pytest-django
+pytest-pythonpath
+mock
+factory_boy
+
+pip>=9
+ipython
