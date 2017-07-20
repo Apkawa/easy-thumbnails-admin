@@ -1,17 +1,29 @@
-'use strict';
-var gulp = require('gulp');
-var initGulpTasks = require('gulp-frontend-tools');
+'use strict'
+const gulp = require('gulp')
+const initTasks = require('gulp-frontend-tools')
 
 var config = {
-    project: {
-        app_root: '{{ _.project_root }}/frontend/',
-        dist_root: '{{ _.project_root }}/modeltranslation_rosetta/static/modeltranslation_rosetta/',
-        static_root: '/static/',
-    },
-    webpack: {
-        resolve: {
-            alias: {}
-        }
+  project: {
+    name: 'easy_thumbnails_admin',
+    app_root: '{{ _.project_root }}/frontend/',
+    dist_root: '{{ _.project_root }}/{{ _.name }}/static/{{ _.name }}/',
+    static_root: '/static/',
+  },
+  webpack: {
+    hot: false,
+    extract_css: false,
+    commonChunk: false,
+    config: {
+      resolve: {
+        alias: {}
+      },
+      externals: {
+        jquery: 'django.jQuery'
+      }
     }
+
+  }
 }
-initGulpTasks(gulp, config, __dirname);
+
+initTasks(gulp, config)
+  .run()

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'easy_thumbnails_admin',
     'easy_thumbnails',
     'tests',
+    'django_extensions',
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -56,3 +57,12 @@ THUMBNAIL_ALIASES = {
         'front': {'size': (300, 100), 'crop': 'smart'},
     }
 }
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'easy_thumbnails_admin.processors.scale_and_crop',
+    'easy_thumbnails.processors.filters',
+    'easy_thumbnails.processors.background',
+)
+THUMBNAIL_NAMER = 'easy_thumbnails_admin.namers.default'

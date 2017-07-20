@@ -5,9 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = []
 
-
 urlpatterns += [
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/api/easy-thumbnail-admin/', include('easy_thumbnails_admin.urls'))
 ]
 
 if settings.DEBUG:

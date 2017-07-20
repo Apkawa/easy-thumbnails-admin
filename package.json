@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "gulp-frontend-tools": "^0.2.10",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-cropper": "^0.12.0",
+    "react-dom": "^15.6.1",
+    "react-modal": "^2.2.2"
   }
 }

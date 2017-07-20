@@ -18,7 +18,11 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('alias', models.CharField(max_length=42)),
                 ('options', jsonfield.fields.JSONField(null=True, blank=True)),
-                ('source', models.ForeignKey(to='easy_thumbnails.Source')),
+                ('source', models.ForeignKey(related_name='options', to='easy_thumbnails.Source')),
             ],
+        ),
+        migrations.AlterUniqueTogether(
+            name='thumbnailoption',
+            unique_together=set([('source', 'alias')]),
         ),
     ]

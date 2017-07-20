@@ -7,3 +7,5 @@ factory_boy
 
 pip>=9
 ipython
+
+django-extensions

@@ -6,7 +6,7 @@ from jsonfield import JSONField
 
 
 class ThumbnailOption(models.Model):
-    source = models.ForeignKey('easy_thumbnails.Source')
+    source = models.ForeignKey('easy_thumbnails.Source', related_name='options')
     alias = models.CharField(max_length=42)
     options = JSONField(blank=True, null=True)
 
