@@ -34,8 +34,8 @@ def get_field(target):
 
 def get_thumbnailer(name, target):
     model, field = get_field(target)
-    thumbnailer = getattr(model(), field.name)
-    thumbnailer.name = name
+    thumbnailer = getattr(model(**{field.name: name}), field.name)
+    # thumbnailer.name = name
     return thumbnailer
 
 
@@ -45,7 +45,7 @@ class ThumbnailInfoView(View):
         target = self.request.GET['target']
         thumbnailer = get_thumbnailer(name, target)
 
-        source = thumbnailer.get_source_cache()
+        source = thumbnailer.get_source_cache(create=True)
         aliases_dict = {key: thumbnailer.get_full_options(key) for key, opts in aliases.all(target).items()}
         thumbnails = {}
         for key, opt in aliases_dict.items():

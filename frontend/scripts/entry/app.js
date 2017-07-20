@@ -4,7 +4,12 @@ import React from 'react'
 import { render, unmountComponentAtNode } from  'react-dom'
 import { ThumbnailAdmin } from '../components'
 
+
 $(() => {
+  if (window.__easyThumbnailRegistered) {
+    return
+  }
+  window.__easyThumbnailRegistered = true
   const $container = $(`<div id="easy-thumbnail-container"/>`)
   $('body').append($container)
   const container = $container[0]

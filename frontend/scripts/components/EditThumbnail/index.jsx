@@ -50,6 +50,7 @@ export default class EditThumbnail extends Component {
       preview={`.${style.cropPreview}`}
       aspectRatio={width / height}
       rotatable={false}
+      dragMode='move'
       viewMode={1}
     />
   }
