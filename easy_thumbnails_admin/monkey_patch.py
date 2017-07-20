@@ -3,16 +3,12 @@ from __future__ import unicode_literals
 from copy import deepcopy
 import json
 
-from easy_thumbnails.alias import aliases
 
-from easy_thumbnails.files import Thumbnailer
-from django.forms.widgets import FileInput
-
-from easy_thumbnails_admin.options import get_options
 
 
 def Thumbnailer__get_full_options(self, alias):
     from .models import ThumbnailOption
+    from easy_thumbnails.alias import aliases
     options = aliases.get(alias, target=self.alias_target)
 
     if not options:
@@ -37,6 +33,8 @@ def Thumbnailer____getitem__(self, alias):
 
 
 def FileInput__render(self, name, value, attrs=None):
+    from easy_thumbnails.files import Thumbnailer
+    from easy_thumbnails_admin.options import get_options
     is_thumbnailer = isinstance(value, Thumbnailer)
     if is_thumbnailer:
         attrs = attrs or {}
@@ -59,6 +57,9 @@ def FileInput__media(self):
 
 
 def patch():
+    from easy_thumbnails.files import Thumbnailer
+    from django.forms.widgets import FileInput
+
     Thumbnailer.__getitem__ = Thumbnailer____getitem__
     Thumbnailer.get_full_options = Thumbnailer__get_full_options
     FileInput__render.old = FileInput.render

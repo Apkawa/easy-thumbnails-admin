@@ -15,9 +15,19 @@ version = '0.0.1'
 ROOT = os.path.dirname(__file__)
 
 
-def read(fname):
-    return open(os.path.join(ROOT, fname)).read()
+def get_absolute_path(path):
+    return os.path.join(ROOT, path)
 
+def parse_requirements(filename):
+    """ load requirements from a pip requirements file """
+    lineiter = (line.strip() for line in open(filename))
+    return [line for line in lineiter if line and not line.startswith("#")]
+
+def read(fname):
+    return open(get_absolute_path(fname)).read()
+
+
+requires = [str(ir) for ir in parse_requirements(get_absolute_path('package_requirements.txt'))]
 
 setup(
     name=project_name,
@@ -28,7 +38,7 @@ setup(
     author="Apkawa",
     author_email='apkawa@gmail.com',
     packages=[package for package in find_packages() if package.startswith(app_name)],
-    requires=filter(None, read('package_requirements.txt').splitlines()),
+    install_requires=requires,
     zip_safe=False,
     include_package_data=True,
     classifiers=[
