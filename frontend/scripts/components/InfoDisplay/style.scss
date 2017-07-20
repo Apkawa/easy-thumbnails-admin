@@ -1,6 +1,6 @@
 
 .container {
-  width: 50vw;
+  width: 85vw;
   max-height: 85vh;
   .original img {
     max-height: 300px;
@@ -8,10 +8,29 @@
   }
   .aliasList {
     display: flex;
+    flex-wrap: wrap;
+
     .aliasItem {
-      padding: 10px;
+      border: 1px solid lightgray;
+      margin: 10px;
       width: 300px;
-      height: 300px;
+      height: 350px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      .aliasItemImage {
+        flex-grow: 2;
+        display: flex;
+        align-self: center;
+        img {
+          padding: 5px;
+          border: 1px solid lightgray;
+          align-self: center;
+          max-width: 250px;
+          max-height: 250px;
+        }
+      }
     }
   }
 }

@@ -20,12 +20,16 @@ export default function InfoDisplay ({data, onClickEdit = () => {}, onClickReset
         {Object.entries(thumbnails).map(
           ([alias, thumb]) =>
             <div className={style.aliasItem}>
-              <img src={`${thumb.url}?r=${new Date().getTime()}`} alt={thumb.name}/>
-              <h3>{alias}</h3>
-              <button onClick={() => onClickEdit({alias, thumb}) }>Edit</button>
-              {thumb.options.thumbnail_option_id
-                ? <button onClick={() => onClickReset({alias, thumb}) }>Reset</button>
-                : null}
+              <div className={style.aliasItemImage}>
+                <img src={`${thumb.url}?r=${new Date().getTime()}`} alt={thumb.name}/>
+              </div>
+              <div>
+                <h3>{alias}</h3>
+                <button onClick={() => onClickEdit({alias, thumb}) }>Edit</button>
+                {thumb.options.thumbnail_option_id
+                  ? <button onClick={() => onClickReset({alias, thumb}) }>Reset</button>
+                  : null}
+              </div>
             </div>
         )}
       </div>
