@@ -28,7 +28,7 @@ setup(
     author="Apkawa",
     author_email='apkawa@gmail.com',
     packages=[package for package in find_packages() if package.startswith(app_name)],
-    requires=['six', 'django_modeltranslation'],
+    requires=filter(None, read('package_requirements.txt').splitlines()),
     zip_safe=False,
     include_package_data=True,
     classifiers=[
