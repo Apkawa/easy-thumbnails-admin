@@ -18,7 +18,7 @@ def Thumbnailer__get_full_options(self, alias):
         raise KeyError(alias)
     try:
         overrided_option = ThumbnailOption.objects.get(source=self.get_source_cache(), alias=alias)
-        options.update(overrided_option.options)
+        options.update(overrided_option.get_cleaned_options())
         options['thumbnail_option_id'] = overrided_option.id
     except ThumbnailOption.DoesNotExist:
         pass

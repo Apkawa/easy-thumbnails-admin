@@ -65,4 +65,4 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters',
     'easy_thumbnails.processors.background',
 )
-THUMBNAIL_NAMER = 'easy_thumbnails_admin.namers.default'
+# THUMBNAIL_NAMER = 'easy_thumbnails_admin.namers.default'

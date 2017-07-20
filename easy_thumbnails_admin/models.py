@@ -12,3 +12,12 @@ class ThumbnailOption(models.Model):
 
     class Meta:
         unique_together = ['source', 'alias']
+
+    def get_cleaned_options(self):
+        keys = ['crop']
+        new_options = {}
+        for key, value in self.options.items():
+            if key in keys:
+                new_options[key] = value
+
+        return new_options
