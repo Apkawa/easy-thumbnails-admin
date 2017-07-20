@@ -41,7 +41,6 @@ export default class EditThumbnail extends Component {
     const {url, thumbnail: {url: thumbnail_url, options}} = this.props
     const {size: [width, height], thumbnail_option_id, crop} = options
 
-
     return <Cropper
       ref={(c) => {this.cropper = c}}
       src={url}
@@ -49,6 +48,7 @@ export default class EditThumbnail extends Component {
       data={crop}
       preview={`.${style.cropPreview}`}
       aspectRatio={width / height}
+      autoCropArea={1}
       rotatable={false}
       dragMode='move'
       viewMode={1}
