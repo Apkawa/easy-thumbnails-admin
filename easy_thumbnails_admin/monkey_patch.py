@@ -1,6 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
-
+from copy import deepcopy
 import json
 
 from easy_thumbnails.alias import aliases
@@ -14,8 +14,10 @@ from easy_thumbnails_admin.options import get_options
 def Thumbnailer__get_full_options(self, alias):
     from .models import ThumbnailOption
     options = aliases.get(alias, target=self.alias_target)
+
     if not options:
         raise KeyError(alias)
+    options = deepcopy(options)
     try:
         overrided_option = ThumbnailOption.objects.get(source=self.get_source_cache(), alias=alias)
         options.update(overrided_option.get_cleaned_options())

@@ -90,7 +90,7 @@ class ThumbnailSetOptionView(View):
             t_option.save(update_fields=['options'])
 
         options = thumbnailer.get_full_options(alias)
-        options['ALIAS'] = alias
+        # options['ALIAS'] = alias
 
         thumb = thumbnailer[alias]
         storage = thumb.storage
