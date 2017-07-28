@@ -8,9 +8,16 @@ App for Django featuring improved form base classes.
 """
 
 project_name = 'easy-thumbnail-admin'
-app_name = 'easy_thumbnail_admin'
+app_name = 'easy_thumbnails_admin'
 
-version = '0.0.1'
+
+def exec_file(filepath):
+    global_vars = {}
+    with open(filepath) as f:
+        code = compile(f.read(), os.path.split(filepath)[1], 'exec')
+        exec (code, global_vars)
+    return global_vars
+
 
 ROOT = os.path.dirname(__file__)
 
@@ -18,10 +25,15 @@ ROOT = os.path.dirname(__file__)
 def get_absolute_path(path):
     return os.path.join(ROOT, path)
 
+
+version = exec_file(os.path.join(ROOT, app_name, '_version.py'))['VERSION']
+
+
 def parse_requirements(filename):
     """ load requirements from a pip requirements file """
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
+
 
 def read(fname):
     return open(get_absolute_path(fname)).read()
@@ -49,8 +61,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 )

@@ -8,7 +8,6 @@ from easy_thumbnails.utils import get_storage_hash
 from django.forms.widgets import FileInput
 
 
-
 def ThumbnailOptions__init__(self, *args, **kwargs):
     ThumbnailOptions__init__.old(self, *args, **kwargs)
     for key in ['thumbnail_option_id', 'admin']:
@@ -64,13 +63,14 @@ def FileInput__render(self, name, value, attrs=None):
 
 
 def FileInput__media(self):
+    from ._version import VERSION
     media = FileInput__media.old.fget(self)
-    media.add_js(['easy_thumbnails_admin/js/app.js'])
+    # TODO hash of file
+    media.add_js(['easy_thumbnails_admin/js/app.js?v={}'.format(VERSION)])
     return media
 
 
 def patch():
-
     Thumbnailer.__getitem__ = Thumbnailer____getitem__
     Thumbnailer.get_full_options = Thumbnailer__get_full_options
 
