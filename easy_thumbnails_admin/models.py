@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from jsonfield import JSONField
 
 
@@ -19,5 +21,16 @@ class ThumbnailOption(models.Model):
         for key, value in self.options.items():
             if key in keys:
                 new_options[key] = value
-
         return new_options
+
+
+@receiver(post_save, sender=ThumbnailOption)
+def option_save(sender, instance, **kwargs):
+    from .cache import set_cache
+    set_cache(instance)
+
+
+@receiver(post_delete, sender=ThumbnailOption)
+def option_delete(sender, instance, **kwargs):
+    from .cache import delete_cache
+    delete_cache(instance)

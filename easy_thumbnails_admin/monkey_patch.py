@@ -7,6 +7,9 @@ from easy_thumbnails.files import Thumbnailer, ThumbnailOptions
 from easy_thumbnails.utils import get_storage_hash
 from django.forms.widgets import FileInput
 
+from .cache import get_cache, set_cache
+from .utils.json import CustomJsonEncoder
+
 
 def ThumbnailOptions__init__(self, *args, **kwargs):
     ThumbnailOptions__init__.old(self, *args, **kwargs)
@@ -24,12 +27,17 @@ def Thumbnailer__get_full_options(self, alias):
     options = deepcopy(options)
     try:
         # Todo cache
-        overrided_option = ThumbnailOption.objects.get(
-            source__name=self.name,
-            source__storage_hash=get_storage_hash(self.storage),
-            alias=alias)
-        options.update(overrided_option.get_cleaned_options())
-        options['thumbnail_option_id'] = overrided_option.id
+        storage_hash = get_storage_hash(self.storage)
+        override_option = get_cache(alias, self.name, storage_hash)
+        if not override_option:
+            thumbnail_option = ThumbnailOption.objects.get(
+                source__name=self.name,
+                source__storage_hash=storage_hash,
+                alias=alias)
+            set_cache(thumbnail_option)
+            override_option = thumbnail_option.options
+            override_option['thumbnail_option_id'] = thumbnail_option.id
+        options.update(override_option)
     except ThumbnailOption.DoesNotExist:
         pass
     return options
@@ -58,7 +66,7 @@ def FileInput__render(self, name, value, attrs=None):
         rendered += (
             '<script>'
             'window.easyThumbnailAdminOptions = {};'
-            ' </script>'.format(json.dumps(get_options(), ensure_ascii=False)))
+            ' </script>'.format(json.dumps(get_options(), ensure_ascii=False, cls=CustomJsonEncoder)))
     return rendered
 
 
