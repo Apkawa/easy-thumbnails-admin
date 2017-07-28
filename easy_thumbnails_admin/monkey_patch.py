@@ -4,8 +4,9 @@ from copy import deepcopy
 import json
 
 from easy_thumbnails.files import Thumbnailer, ThumbnailOptions
-
+from easy_thumbnails.utils import get_storage_hash
 from django.forms.widgets import FileInput
+
 
 
 def ThumbnailOptions__init__(self, *args, **kwargs):
@@ -23,7 +24,11 @@ def Thumbnailer__get_full_options(self, alias):
         raise KeyError(alias)
     options = deepcopy(options)
     try:
-        overrided_option = ThumbnailOption.objects.get(source=self.get_source_cache(), alias=alias)
+        # Todo cache
+        overrided_option = ThumbnailOption.objects.get(
+            source__name=self.name,
+            source__storage_hash=get_storage_hash(self.storage),
+            alias=alias)
         options.update(overrided_option.get_cleaned_options())
         options['thumbnail_option_id'] = overrided_option.id
     except ThumbnailOption.DoesNotExist:
@@ -65,8 +70,10 @@ def FileInput__media(self):
 
 
 def patch():
+
     Thumbnailer.__getitem__ = Thumbnailer____getitem__
     Thumbnailer.get_full_options = Thumbnailer__get_full_options
+
     ThumbnailOptions__init__.old = ThumbnailOptions.__init__
     ThumbnailOptions.__init__ = ThumbnailOptions__init__
 
