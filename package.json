@@ -9,6 +9,8 @@
     "react": "^15.6.1",
     "react-cropper": "^0.12.0",
     "react-dom": "^15.6.1",
-    "react-modal": "^2.2.2"
+    "react-modal": "^2.2.2",
+    "superagent": "^3.5.2",
+    "superagent-django-csrf": "^0.1.3"
   }
 }

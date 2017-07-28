@@ -25,6 +25,9 @@ export default function InfoDisplay ({data, onClickEdit = () => {}, onClickReset
               </div>
               <div>
                 <h3>{alias}</h3>
+                <div>
+                  {(thumb.admin && thumb.admin.help_text) || null}
+                </div>
                 <button onClick={() => onClickEdit({alias, thumb}) }>Edit</button>
                 {thumb.options.thumbnail_option_id
                   ? <button onClick={() => onClickReset({alias, thumb}) }>Reset</button>

@@ -2,9 +2,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import $ from 'jquery'
-import csrfSetup from '../csrf'
-csrfSetup()
+import client from '../api'
 
 import InfoDisplay from '../InfoDisplay'
 import EditThumbnail from '../EditThumbnail'
@@ -20,49 +18,37 @@ export  default  class Info extends Component {
     editAlias: undefined,
   }
 
-  DETAIL_URL = window.easyThumbnailAdminOptions.api.detail
-  SET_OPTION_URL = window.easyThumbnailAdminOptions.api['set-option']
-  DELETE_OPTION_URL = window.easyThumbnailAdminOptions.api['delete-option']
-
   componentDidMount () {
     this.fetchData()
   }
 
   fetchData () {
-    $.ajax({
-      url: this.DETAIL_URL,
-      data: this.props
+    client.detail(this.props).then(({body}) => {
+      this.setState({data: body})
     })
-      .then((data) => {
-        this.setState({data})
-      })
   }
 
   onClickEditHandler = ({alias}) => {
     this.setState({editAlias: alias})
   }
+
   onSaveOptionHandler = ({data, alias}) => {
-    console.log(data, alias)
-    $.ajax({
-      url: this.SET_OPTION_URL,
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({...this.props, alias, options: data})
+    client.setOption({
+      ...this.props,
+      alias,
+      options: data
+    }).then(() => {
+      this.setState({editAlias: false})
+      this.fetchData()
     })
-      .then((data) => {
-        this.setState({editAlias: false})
-        this.fetchData()
-      })
   }
 
   onResetOptionHandler = ({alias}) => {
-    $.ajax({
-      url: this.DELETE_OPTION_URL,
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({...this.props, alias})
+    client.deleteOption({
+      ...this.props,
+      alias,
     })
-      .then((data) => {
+      .then(() => {
         this.setState({editAlias: false})
         this.fetchData()
       })

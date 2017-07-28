@@ -53,7 +53,12 @@ SECRET_KEY = 'easy'
 
 THUMBNAIL_ALIASES = {
     'tests.Example.image': {
-        'catalog': {'size': (100, 100), 'crop': 'smart'},
+        'catalog': {
+            'size': (100, 100), 'crop': 'smart',
+            'admin': {
+                'help_text': 'Example help_text',
+            }
+        },
         'catalog_large': {'size': (300, 300), 'crop': 'smart'},
         'front': {'size': (300, 100), 'crop': 'smart'},
         'mobile': {'size': (125, 85), 'crop': 'smart'},

@@ -53,6 +53,7 @@ class ThumbnailInfoView(View):
             _t = thumbnailer[key]
             _thumb['name'] = _t.name
             _thumb['url'] = _t.url
+            _thumb['admin'] = opt.pop('admin', None)
             _thumb['options'] = opt
 
         data = {

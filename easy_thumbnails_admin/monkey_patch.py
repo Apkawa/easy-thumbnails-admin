@@ -3,7 +3,15 @@ from __future__ import unicode_literals
 from copy import deepcopy
 import json
 
+from easy_thumbnails.files import Thumbnailer, ThumbnailOptions
 
+from django.forms.widgets import FileInput
+
+
+def ThumbnailOptions__init__(self, *args, **kwargs):
+    ThumbnailOptions__init__.old(self, *args, **kwargs)
+    for key in ['thumbnail_option_id', 'admin']:
+        self.pop(key, None)
 
 
 def Thumbnailer__get_full_options(self, alias):
@@ -57,11 +65,11 @@ def FileInput__media(self):
 
 
 def patch():
-    from easy_thumbnails.files import Thumbnailer
-    from django.forms.widgets import FileInput
-
     Thumbnailer.__getitem__ = Thumbnailer____getitem__
     Thumbnailer.get_full_options = Thumbnailer__get_full_options
+    ThumbnailOptions__init__.old = ThumbnailOptions.__init__
+    ThumbnailOptions.__init__ = ThumbnailOptions__init__
+
     FileInput__render.old = FileInput.render
     FileInput.render = FileInput__render
 
