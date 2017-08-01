@@ -7,7 +7,7 @@ from easy_thumbnails.files import Thumbnailer, ThumbnailOptions
 from easy_thumbnails.utils import get_storage_hash
 from django.forms.widgets import FileInput
 
-from .cache import get_cache, set_cache
+from .cache import get_cache, set_cache, set_cache_by_key, build_key
 from .utils.json import CustomJsonEncoder
 
 
@@ -25,21 +25,21 @@ def Thumbnailer__get_full_options(self, alias):
     if not options:
         raise KeyError(alias)
     options = deepcopy(options)
+    name = self.name
+    storage_hash = get_storage_hash(self.storage)
     try:
-        # Todo cache
-        storage_hash = get_storage_hash(self.storage)
-        override_option = get_cache(alias, self.name, storage_hash)
-        if not override_option:
+        override_option = get_cache(alias, name, storage_hash)
+        if override_option is None:
             thumbnail_option = ThumbnailOption.objects.get(
-                source__name=self.name,
+                source__name=name,
                 source__storage_hash=storage_hash,
                 alias=alias)
             set_cache(thumbnail_option)
             override_option = thumbnail_option.options
             override_option['thumbnail_option_id'] = thumbnail_option.id
-        options.update(override_option)
+        options.update(override_option or {})
     except ThumbnailOption.DoesNotExist:
-        pass
+        set_cache_by_key(build_key(alias, name, storage_hash), False)
     return options
 
 

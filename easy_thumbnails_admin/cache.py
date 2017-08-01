@@ -29,13 +29,17 @@ def set_cache(thumbnail_option, timeout=CACHE_TIMEOUT):
     cache.set(key, options, timeout)
 
 
+def set_cache_by_key(key, value, timeout=CACHE_TIMEOUT):
+    cache.set(key, value, timeout)
+
+
 def delete_cache(thumbnail_option):
     key = build_key_from_instance(thumbnail_option),
     cache.delete(key, thumbnail_option.options)
 
 
 def get_cache(alias, name, storage_hash):
-    key = build_key(alias, name, storage_hash),
+    key = build_key(alias, name, storage_hash)
     return cache.get(key)
 
 
