@@ -11,6 +11,7 @@ class ApplicationConfig(AppConfig):
         from .settings import CACHE, STARTUP_CACHE
         from .cache import rebuild_cache
 
+        # TODO check migrations or move to management command
+        # if CACHE and STARTUP_CACHE:
+        #     rebuild_cache(self.get_model('ThumbnailOption'))
 
-        if CACHE and STARTUP_CACHE:
-            rebuild_cache(self.get_model('ThumbnailOption'))
