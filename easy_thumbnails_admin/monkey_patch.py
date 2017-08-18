@@ -56,7 +56,7 @@ def FileInput__render(self, name, value, attrs=None):
     from easy_thumbnails.files import Thumbnailer
     from easy_thumbnails_admin.options import get_options
     is_thumbnailer = isinstance(value, Thumbnailer)
-    if is_thumbnailer:
+    if is_thumbnailer and value:
         attrs = attrs or {}
         attrs['data-easy-thumbnail-admin-input'] = 1
         attrs['data-name'] = value.name
