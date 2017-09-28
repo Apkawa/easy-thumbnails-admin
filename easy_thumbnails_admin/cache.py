@@ -19,11 +19,11 @@ def build_key(alias, name, storage_hash):
 
 
 def build_key_from_instance(thumbnail_option):
-    return build_key(thumbnail_option.alias, thumbnail_option.source.name, thumbnail_option.source.storage_hash),
+    return build_key(thumbnail_option.alias, thumbnail_option.source.name, thumbnail_option.source.storage_hash)
 
 
 def set_cache(thumbnail_option, timeout=CACHE_TIMEOUT):
-    key = build_key_from_instance(thumbnail_option),
+    key = build_key_from_instance(thumbnail_option)
     options = thumbnail_option.options
     options['thumbnail_option_id'] = thumbnail_option.id
     cache.set(key, options, timeout)
@@ -34,8 +34,8 @@ def set_cache_by_key(key, value, timeout=CACHE_TIMEOUT):
 
 
 def delete_cache(thumbnail_option):
-    key = build_key_from_instance(thumbnail_option),
-    cache.delete(key, thumbnail_option.options)
+    key = build_key_from_instance(thumbnail_option)
+    cache.delete(key)
 
 
 def get_cache(alias, name, storage_hash):

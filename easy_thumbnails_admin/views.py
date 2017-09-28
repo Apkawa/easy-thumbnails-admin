@@ -23,6 +23,7 @@ from django.views.generic.list import ListView, MultipleObjectMixin
 from easy_thumbnails.models import Source, Thumbnail
 from easy_thumbnails.alias import aliases
 from .models import ThumbnailOption
+from .cache import delete_cache
 
 
 def get_field(target):
@@ -89,6 +90,8 @@ class ThumbnailSetOptionView(View):
         if not created:
             t_option.options = options
             t_option.save(update_fields=['options'])
+
+        delete_cache(t_option)
 
         options = thumbnailer.get_full_options(alias)
         # options['ALIAS'] = alias
