@@ -3,11 +3,9 @@
 import os
 from setuptools import setup, find_packages
 
-__doc__ = """
-App for Django featuring improved form base classes.
-"""
+__doc__ = """Admin interface for editing thumbnail aliases"""
 
-project_name = 'easy-thumbnail-admin'
+project_name = 'easy-thumbnails-admin'
 app_name = 'easy_thumbnails_admin'
 
 
