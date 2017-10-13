@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from hashlib import sha256
 
 from django.core.cache import caches
+from django.utils.encoding import smart_bytes
 
 from .settings import CACHE, CACHE_TIMEOUT
 from .utils.queryset import queryset_iterator
@@ -14,7 +15,7 @@ cache = caches[CACHE]
 
 
 def build_key(alias, name, storage_hash):
-    key_str = "{alias}_{name}_{storage_hash}".format(alias=alias, name=name, storage_hash=storage_hash)
+    key_str = smart_bytes("{alias}_{name}_{storage_hash}".format(alias=alias, name=name, storage_hash=storage_hash))
     return '%s%s' % (CACHE_PREFIX, sha256(key_str).hexdigest())
 
 

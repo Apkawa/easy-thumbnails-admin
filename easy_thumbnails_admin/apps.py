@@ -8,8 +8,10 @@ class ApplicationConfig(AppConfig):
     verbose_name = 'Easy thumbnails'
 
     def ready(self):
-        from .settings import CACHE, STARTUP_CACHE
-        from .cache import rebuild_cache
+        # from .settings import CACHE, STARTUP_CACHE
+        # from .cache import rebuild_cache
+        from . import monkey_patch
+        monkey_patch.patch()
 
         # TODO check migrations or move to management command
         # if CACHE and STARTUP_CACHE:

@@ -14,6 +14,17 @@ STATIC_ROOT = os.path.join(os.path.normcase(os.path.dirname(os.path.dirname(os.p
 STATIC_URL = '/static/'
 
 DATABASE_ENGINE = 'sqlite3'
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth'
+            ],
+        }
+    },
+]
 
 DATABASES = {
     'default': {

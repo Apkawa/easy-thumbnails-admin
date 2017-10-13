@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from copy import deepcopy
 import json
 
+from django.utils.safestring import mark_safe
 from easy_thumbnails.files import Thumbnailer, ThumbnailOptions
 from easy_thumbnails.utils import get_storage_hash
 from django.forms.widgets import FileInput
@@ -74,7 +75,7 @@ def FileInput__media(self):
     from ._version import VERSION
     media = FileInput__media.old.fget(self)
     # TODO hash of file
-    media.add_js(['easy_thumbnails_admin/js/app.js?v={}'.format(VERSION)])
+    media.add_js(['easy_thumbnails_admin/js/app.js'])
     return media
 
 

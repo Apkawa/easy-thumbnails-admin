@@ -2,7 +2,10 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.core.urlresolvers import reverse_lazy
+try:
+    from django.urls import reverse_lazy
+except ImportError:
+    from django.core.urlresolvers import reverse_lazy
 
 DEFAULT_API_URLS = {
     "detail": reverse_lazy('easy_thumbnail_admin:detail'),
