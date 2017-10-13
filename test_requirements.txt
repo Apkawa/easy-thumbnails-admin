@@ -8,3 +8,4 @@ factory_boy
 django-extensions
 ipython
 
+pypandoc

@@ -29,6 +29,7 @@ def get_absolute_path(path):
 version = exec_file(os.path.join(ROOT, app_name, '_version.py'))['VERSION']
 
 
+
 def parse_requirements(filename):
     """ load requirements from a pip requirements file """
     lineiter = (line.strip() for line in open(filename))
@@ -38,6 +39,12 @@ def parse_requirements(filename):
 def read(fname):
     return open(get_absolute_path(fname)).read()
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except ImportError:
+    long_description = read('README.md')
+
 
 requires = [str(ir) for ir in parse_requirements(get_absolute_path('package_requirements.txt'))]
 
@@ -45,14 +52,15 @@ setup(
     name=project_name,
     version=version,
     description=__doc__,
-    long_description=read('README.md'),
-    url="https://github.com/Apkawa/easy-thumbnail-admin'",
+    long_description=long_description,
+    url="https://github.com/Apkawa/easy-thumbnails-admin'",
     author="Apkawa",
     author_email='apkawa@gmail.com',
     packages=[package for package in find_packages() if package.startswith(app_name)],
     install_requires=requires,
     zip_safe=False,
     include_package_data=True,
+    keywords=['django', 'admin', 'easy-thumbnails'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
