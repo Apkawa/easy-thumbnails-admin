@@ -3,3 +3,4 @@
 
 pip>=9
 pypandoc
+ipython>=5,<=6

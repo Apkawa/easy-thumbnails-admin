@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Apkawa/django-multitype-file-field.svg?branch=master)](https://travis-ci.org/Apkawa/easy-thumbnails-admin)
+[![Coverage Status](https://coveralls.io/repos/github/Apkawa/easy-thumbnails-admin/badge.svg)](https://coveralls.io/github/Apkawa/easy-thumbnails-admin)
 [![Requirements Status](https://requires.io/github/Apkawa/django-multitype-file-field/requirements.svg?branch=master)](https://requires.io/github/Apkawa/easy-thumbnails-admin/requirements/?branch=master)
 [![PyPI](https://img.shields.io/pypi/pyversions/easy-thumbnails-admin.svg)]()
 
